@@ -64,6 +64,9 @@ public class Test1 {
 Thread.sleep(500);
         //To enter random generated Username
         ReusableActions_Loggers.sendKeysAction(driver, "//*[@id='username']", randomUsername, logger, "Username Field");
+        //select from the list of suggested usernames if one is already taken
+        ReusableActions_Loggers.clickActionByIndex(driver,"//*[@class='btn btn-secondary btn-sm']",1,logger,"suggested name");
+
         //to enter password
         ReusableActions_Loggers.sendKeysAction(driver,"//*[@id='password']","tester12",logger,"password button");
 Thread.sleep(1000);
@@ -80,6 +83,9 @@ Thread.sleep(1000);
         ArrayList<WebElement> countries= new ArrayList<>(driver.findElements(By.xpath("//*[@class='active-result']")));
         Thread.sleep(1000);
         countries.get(random.nextInt(countries.size())).click();
+        Thread.sleep(2000);
+        //handle popup radio buttons
+        ReusableActions_Loggers.clickAction(driver,"//*[@class='iradio_square-blue']",logger,"Marketing Radio Button");
         //countries.get(5).click();
         //countries.get(random.nextInt(countries.size())).click();
 
@@ -248,13 +254,20 @@ Thread.sleep(2000);
 //Entering Email
         ReusableActions_Loggers.sendKeysAction(driver, "//*[@id='emailAddress']", "QAGtesterAutomation@gmail.com", logger, "Email Adress");
 //to randomly Generate username we create Array for username
-        String[] username = {"qagtes257", "qagtes177", "qagtes041", "qa123fsdf"};
+        String[] username = {"QAEngineer", "QATester", "QAAnalyst", "QAAutomation"};
+        Integer[] numbers = {412122, 3411111, 235345, 2342, 4324, 45248, 6749, 2934};
         Random random = new Random();
-        String randomUsername = (username[random.nextInt(username.length)]);
+        String randomUsername = (username[random.nextInt(username.length)] + numbers[random.nextInt(numbers.length)]);
         System.out.println(randomUsername);
         Thread.sleep(500);
         //To enter random generated Username
         ReusableActions_Loggers.sendKeysAction(driver, "//*[@id='username']", randomUsername, logger, "Username Field");
+       //click on the password box
+        ReusableActions_Loggers.clickAction(driver,"//*[@id='password']",logger,"password button");
+        Thread.sleep(1000);
+        //select from the list of suggested usernames if one is already taken
+        ReusableActions_Loggers.clickActionByIndex(driver,"//*[@class='btn btn-secondary btn-sm']",1,logger,"suggested name");
+
         //to enter password
         ReusableActions_Loggers.sendKeysAction(driver,"//*[@id='password']","tester12",logger,"password button");
         Thread.sleep(1000);
@@ -269,9 +282,14 @@ Thread.sleep(2000);
         ArrayList<WebElement> countries= new ArrayList<>(driver.findElements(By.xpath("//*[@class='active-result']")));
         Thread.sleep(1000);
         countries.get(random.nextInt(countries.size())).click();
+        Thread.sleep(2000);
+        //handle popup radio buttons
+        ReusableActions_Loggers.clickAction(driver,"//*[@class='iradio_square-blue']",logger,"Marketing Radio Button");
+        //countries.get(5).click();
+        //countries.get(random.nextInt(countries.size())).click();
 
 //scroll down
-        ReusableActions_Loggers.scrollByView(driver,"//*[@id='answer0']",logger,"Security Question scroll");
+        ReusableActions_Loggers.scrollByView(driver,"//*[@id='answer2']",logger,"Security Question scroll");
         Thread.sleep(500);
         //Enter First name
         ReusableActions_Loggers.sendKeysAction(driver,"//*[@id='firstName']","John",logger,"Firstname");
@@ -291,20 +309,28 @@ Thread.sleep(2000);
         ReusableActions_Loggers.selectbyIndex(driver,"//*[@id='question2']",15,logger,"Q3");
         ReusableActions_Loggers.sendKeysAction(driver,"//*[@id='answer2']","Dubai",logger,"Answer3");
 
-        ReusableActions_Loggers.scrollByView(driver,"//*[@id='paAgreement_positive']",logger,"Security Question scroll");
-
+        ReusableActions_Loggers.scrollByView(driver,"//*[@id='paAgreement_negative']",logger,"Security Question scroll");
         Thread.sleep(500);
+
 //Click on DisAgree
         Thread.sleep(1000);
-        ReusableActions_Loggers.scrollByView(driver,"//*[@id='paAgreement_positive']",logger,"Agreement scroll");
+        ReusableActions_Loggers.scrollByView(driver,"//*[@id='paAgreement_negative']",logger,"Agreement scroll");
         Thread.sleep(1000);
-        //ReusableActions_Loggers.clickAction(driver,"//*[@id='paAgreement_negative']",logger,"Agree Button");
+        ReusableActions_Loggers.clickAction(driver,"//*[@id='paAgreement_negative']",logger,"Agree Button");
         //Click on Create Account
         Thread.sleep(1000);
-        //ReusableActions_Loggers.scrollByView(driver,"//*[@id='paAgreement_positive']",logger,"Agreement scroll");
-
-       // ReusableActions_Loggers.clickAction(driver,"//*[@class='btn btn-lg btn-primary w-100 btn-create']",logger,"Create Account Button");
-
+        ReusableActions_Loggers.clickAction(driver,"//*[@id='paAgreement_negative']",logger,"Disagree");
+        //attempt to create an account
+        ReusableActions_Loggers.clickAction(driver,"//*[@class='btn btn-lg btn-primary w-100 btn-create']",logger,"Create Account Button");
+        Thread.sleep(1000);
+        //click out of the username box then scroll
+        ReusableActions_Loggers.clickAction(driver,"//*[@class='col-12 col-lg-6 start-right']",logger,"right side box");
+        //scroll down to see error message
+        ReusableActions_Loggers.scrollByView(driver,"//*[@id='paAgreement_negative']",logger,"Agreement scroll");
+        //verify error message
+        ReusableActions_Loggers.getTextByIndex(driver,"//*[@class='alert alert-danger']",0,logger,"Agree to terms");
+        //take a screenshot
+        ReusableActions_Loggers.getScreenShot(driver,"Agree Message",logger);
 
     }//end of test 3
 
