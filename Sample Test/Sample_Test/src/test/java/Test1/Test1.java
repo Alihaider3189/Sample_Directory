@@ -237,7 +237,7 @@ Thread.sleep(2000);
     @Test(priority = 3)
     public void tc003_agreementToogleTest() throws InterruptedException {
         //set the name of the test case to the report by using logger concept
-        logger = reports.startTest("tc001_completeApplication");
+        logger = reports.startTest("tc003_agreementToogleTest");
 
         //first navigate to webpage homepage
         driver.navigate().to("https://www.portfolioanalyst.com/en/pa/home.php");
@@ -283,10 +283,9 @@ Thread.sleep(2000);
         Thread.sleep(1000);
         countries.get(random.nextInt(countries.size())).click();
         Thread.sleep(2000);
-        //handle popup radio buttons
+        //handle popup radio buttons if they appear
         ReusableActions_Loggers.clickAction(driver,"//*[@class='iradio_square-blue']",logger,"Marketing Radio Button");
-        //countries.get(5).click();
-        //countries.get(random.nextInt(countries.size())).click();
+        
 
 //scroll down
         ReusableActions_Loggers.scrollByView(driver,"//*[@id='answer2']",logger,"Security Question scroll");
